@@ -1,9 +1,8 @@
 using HorizonSideRobots
 include("functions.jl")
 
-coord = toBottomRightCorner(r::Robot)
-
 function taskThree(r)
+    coord = toBottomRightCorner(r::Robot)
     while !ismarker(r) #creates marker rings untinl where is no mare space
         i = 0 #side number
         while i < 4 #creates marker ring around the border

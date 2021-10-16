@@ -61,3 +61,13 @@ function toBottomRightCorner(r) #Перемещает робота в нижни
 
     return [x, y]
 end
+
+function returnFromBottomRightCorner(r, coords) #Возвращает робота в исходную позицию из правого нижнего угла
+    for i in 1:coord[1]
+        move!(r, West)
+    end
+
+    for i in 1:coord[2]
+        move!(r, Nord)
+    end
+end
