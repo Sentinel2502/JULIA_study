@@ -1,7 +1,7 @@
 using HorizonSideRobots
 include("functions.jl")
 
-function taskOne(r)
+function taskOne(r::Robot)
     for i in 0:3
         putMarkersReturn!(r, HorizonSide(i))
     end

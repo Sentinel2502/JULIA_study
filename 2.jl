@@ -1,7 +1,7 @@
 using HorizonSideRobots
 include("functions.jl")
 
-function taskTwo(r)
+function taskTwo(r::Robot)
     coord = toBottomRightCorner(r)
     for i in 0:3
         putMarkersStopOnBorder!(r, HorizonSide(i))
