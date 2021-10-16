@@ -4,7 +4,7 @@ include("functions.jl")
 function taskTwo(r)
     coord = toBottomRightCorner(r)
     for i in 0:3
-        putMarkers!(r, HorizonSide(i))
+        putMarkersStopOnBorder!(r, HorizonSide(i))
     end
 
     for i in 1:coord[1]

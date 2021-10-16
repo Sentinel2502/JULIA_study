@@ -28,10 +28,21 @@ function putMarkersReturn!(r::Robot, side::HorizonSide) #Идет в задан�
     
 end
 
-function putMarkers!(r::Robot, side::HorizonSide) #Идет в заданном направлении, ставя маркеры на своем пути
+function putMarkersStopOnBorder!(r::Robot, side::HorizonSide) #Идет в заданном направлении, ставя маркеры на своем пути. Встретив преграду, останавливается
     while !isborder(r, side)
         move!(r, side)
         putmarker!(r)
+    end
+end
+
+function putMarkersStopOnMarker!(r::Robot, side::HorizonSide) #Идет в заданном направлении, ставя маркеры на своем пути. Встретив преграду или маркер, останавливается
+    while !isborder(r, side)
+        putmarker!(r)
+        move!(r, side)
+        if ismarker(r)
+            move!(r, reverseSide(side))
+            break
+        end
     end
 end
 
