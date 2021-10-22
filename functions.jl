@@ -9,6 +9,7 @@ function reverseSide(side::HorizonSide) #Инвертирует сторону �
         return West
     else
         return Ost
+
     end
 end
 
@@ -70,4 +71,16 @@ function returnFromBottomRightCorner(r, coords) #Возвращает робот
     for i in 1:coord[2]
         move!(r, Nord)
     end
+end
+
+function returnFromBottomRightCornerBySteps(r, steps) #Возвращает робота в исходную позицию из нижнего правого угла по шагам
+    for i in length(steps):-1:1
+        move!(r, reverseSide(steps[i]))
+    end
+end
+
+function moveUntilBorder!(r, side::HorizonSide) #Робот двигается в выбранном направлении, пока не встретит преграду
+    while !isborder(r, side)
+        move!(r, side)
+    end        
 end
