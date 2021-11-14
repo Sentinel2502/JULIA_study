@@ -26,7 +26,7 @@ function putMarkersReturn!(r::Robot, side::HorizonSide) #Идет в задан�
     for i in 1:steps
         move!(r, new_side)
     end
-    
+
 end
 
 function putMarkersStopOnBorder!(r::Robot, side::HorizonSide) #Идет в заданном направлении, ставя маркеры на своем пути. Встретив преграду, останавливается
@@ -47,7 +47,7 @@ function putMarkersStopOnMarker!(r::Robot, side::HorizonSide) #Идет в за�
     end
 end
 
-function toBottomRightCorner(r) #Перемещает робота в нижний правый угол. Возвращает количество шагов нужное, чтобы вернуться в исходную позицию
+function toBottomRightCorner(r::Robot) #Перемещает робота в нижний правый угол. Возвращает количество шагов нужное, чтобы вернуться в исходную позицию
     x = 0
     y = 0
     while !isborder(r, Ost)
@@ -63,7 +63,7 @@ function toBottomRightCorner(r) #Перемещает робота в нижни
     return [x, y]
 end
 
-function returnFromBottomRightCorner(r, coords) #Возвращает робота в исходную позицию из правого нижнего угла
+function returnFromBottomRightCorner(r::Robot, coords) #Возвращает робота в исходную позицию из правого нижнего угла
     for i in 1:coord[1]
         move!(r, West)
     end
@@ -73,14 +73,31 @@ function returnFromBottomRightCorner(r, coords) #Возвращает робот
     end
 end
 
-function returnFromBottomRightCornerBySteps(r, steps) #Возвращает робота в исходную позицию из нижнего правого угла по шагам
+function returnFromBottomRightCornerBySteps(r::Robot, steps) #Возвращает робота в исходную позицию из нижнего правого угла по шагам
     for i in length(steps):-1:1
         move!(r, reverseSide(steps[i]))
     end
 end
 
-function moveUntilBorder!(r, side::HorizonSide) #Робот двигается в выбранном направлении, пока не встретит преграду
+function moveUntilBorder!(r::Robot, side::HorizonSide) #Робот двигается в выбранном направлении, пока не встретит преграду
     while !isborder(r, side)
         move!(r, side)
-    end        
+    end
+end
+
+function toBottomRightCornerFive!(r::Robot) # Robot moves to bottom right corner, but suitable for fith tasks. Saves path by steps
+    steps = HorizonSide[]
+    while !(isborder(r, Sud) && isborder(r, Ost))
+        while !isborder(r, Sud)
+            move!(r, Sud)
+            push!(steps, Sud)
+        end
+
+        while !isborder(r, Ost)
+            move!(r, Ost)
+            push!(steps, Ost)
+        end
+    end
+
+    return steps
 end
