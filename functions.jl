@@ -1,4 +1,4 @@
-using HorizonSideRobots;
+using HorizonSideRobots
 
 function reverseSide(side::HorizonSide) #Инвертирует сторону света
     if side == Nord
@@ -148,5 +148,13 @@ function stepIfPossible(r::Robot, side::HorizonSide) #Take one step is possible 
         return true
     else
         return false
+    end
+end
+
+function stepXTimes(r::Robot, side::HorizonSide, x) #Take x steps into one direction (checks for walls)
+    for i in 1:x
+        if !isborder(r, side)
+            move!(r, side)
+        end
     end
 end
