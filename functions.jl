@@ -64,11 +64,11 @@ function toBottomRightCorner(r::Robot) #Перемещает робота в н�
 end
 
 function returnFromBottomRightCorner(r::Robot, coords) #Возвращает робота в исходную позицию из правого нижнего угла
-    for i in 1:coord[1]
+    for i in 1:coords[1]
         move!(r, West)
     end
 
-    for i in 1:coord[2]
+    for i in 1:coords[2]
         move!(r, Nord)
     end
 end
@@ -131,5 +131,22 @@ function moveUntilRectangleCorner!(r::Robot, side::HorizonSide, location::Horizo
         while isborder(r, location)
             move!(r, side)
         end
+    end
+end
+
+function intToBool(num) # Converts int to bool
+    if num==0
+        return false
+    else
+        return true
+    end
+end
+
+function stepIfPossible(r::Robot, side::HorizonSide) #Take one step is possible and return true, if it's not return false
+    if !isborder(r, side)
+        move!(r, side)
+        return true
+    else
+        return false
     end
 end
